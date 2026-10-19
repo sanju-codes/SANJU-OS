@@ -1,12 +1,12 @@
 name: Build Sanju Security OS ISO
 
 on:
-  workflow_dispatch:        # manual "Run workflow" button
+  workflow_dispatch:
   push:
-    tags: ['v*']            # also builds + publishes a Release when you push a tag like v0.1
+    tags: ['v*']
 
 permissions:
-  contents: write           # needed to attach the ISO to a Release
+  contents: write
 
 jobs:
   build:
@@ -26,8 +26,36 @@ jobs:
           docker-images: false
           swap-storage: true
 
+      - name: Prepare project (use the uploaded project, or generate it from the phase scripts)
+        run: |
+          set -euxo pipefail
+          find . -path ./.git -prune -o -type f \( -name '*.sh' -o -name '*.py' \) -print0 | xargs -0 -r sed -i 's/\r$//'
+          if [ -f scripts/03-build.sh ]; then
+            PROJ=.
+          elif [ -f sanju-security-os/scripts/03-build.sh ]; then
+            PROJ=sanju-security-os
+          else
+            P1=$(find . -name phase1-bootstrap.sh -not -path './.git/*' | head -1)
+            if [ -z "$P1" ]; then
+              echo "ERROR: repo has neither the project (scripts/03-build.sh) nor phase1-bootstrap.sh"
+              ls -R . | head -60
+              exit 1
+            fi
+            SRC=$(dirname "$P1")
+            PROJ=generated/sanju-security-os
+            mkdir -p generated
+            for p in phase1-bootstrap.sh phase2-branding.sh phase3-security-center.sh phase4-tools.sh phase2b-parrot-style.sh refocus-sigint-recovery.sh; do
+              if [ -f "$SRC/$p" ]; then bash "$SRC/$p" "$PWD/$PROJ"; fi
+            done
+            mkdir -p "$PROJ/tools"
+            cp "$SRC/phase5-iso.sh" "$PROJ/tools/"
+          fi
+          echo "PROJ=$PROJ" >> "$GITHUB_ENV"
+
       - name: Build ISO inside Debian 12 (bookworm) container
         run: |
+          set -euxo pipefail
+          cd "$PROJ"
           mkdir -p build
           chmod +x scripts/*.sh tools/*.sh 2>/dev/null || true
           find config -type f \( -name '*.hook.*' -o -path '*/usr/local/*' -o -name '*.desktop' -o -name '*.py' \) -exec chmod +x {} +
@@ -43,20 +71,22 @@ jobs:
           ls -lh build/*.iso
 
       - name: Upload build artifacts
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: sanju-security-os-iso
           path: |
-            build/*.iso
-            build/*.sha256
-            build/build.log
+            ${{ env.PROJ }}/build/*.iso
+            ${{ env.PROJ }}/build/*.sha256
+            ${{ env.PROJ }}/build/build.log
           retention-days: 7
           compression-level: 0
+          if-no-files-found: ignore
 
       - name: Publish Release (tags only)
         if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            build/*.iso
-            build/*.sha256
+            ${{ env.PROJ }}/build/*.iso
+            ${{ env.PROJ }}/build/*.sha256
