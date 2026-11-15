@@ -16,8 +16,9 @@ python3
 python3-gi
 gir1.2-gtk-3.0
 python3-psutil
-policykit-1
-policykit-1-gnome
+polkitd
+pkexec
+polkit-gnome
 man-db
 less
 EOF
