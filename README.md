@@ -45,6 +45,9 @@ Utilities for diagnosing storage devices, recovering accessible files, and troub
 ### SIGINT, RF, and SDR research
 Planned support for software-defined-radio workflows and compatible hardware such as RTL-SDR devices. Use only frequencies, equipment, and transmissions that you are legally authorized to monitor or analyze.
 
+### Desktop applications
+The planned desktop app set includes LibreOffice for office documents, VLC for media playback, Tor Browser launcher for privacy-focused browsing, UFW with the GUFW graphical frontend for firewall management, and Baobab (Disk Usage Analyzer) for visual storage analysis. Tor Browser requires an internet connection for its initial download and setup; package availability is checked during the build.
+
 ### Offline workflows
 The project aims to make essential lab and rescue tasks usable without a continuous internet connection. Package availability and update operations may still require connectivity.
 
