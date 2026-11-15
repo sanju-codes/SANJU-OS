@@ -22,7 +22,7 @@ Build a practical, bootable operating system for security learners, researchers,
 | Area | Direction |
 | --- | --- |
 | Base system | Debian 13 (Trixie) |
-| Desktop | XFCE, with a custom Parrot-inspired visual style |
+| Desktop | XFCE, with a clean Linux Mint-inspired green theme, light desktop, Papirus icons, and bottom panel |
 | Security dashboard | Planned Sanju Security Center (GTK3) |
 | Boot support | Targeting BIOS and UEFI |
 | Live environment | Live boot, with forensic/rescue workflows planned |
