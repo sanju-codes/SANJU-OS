@@ -31,31 +31,25 @@ SVG
 cat > wallpapers/sanju-wallpaper.svg <<'SVG'
 <svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
   <defs>
-    <radialGradient id="bg" cx="50%" cy="45%" r="75%">
-      <stop offset="0" stop-color="#14202c"/><stop offset="1" stop-color="#05080c"/>
-    </radialGradient>
-    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
-      <path d="M60 0 L0 0 0 60" fill="none" stroke="#00e5ff" stroke-opacity="0.05" stroke-width="1"/>
-    </pattern>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4f8f3"/><stop offset="1" stop-color="#dcebdc"/>
+    </linearGradient>
+    <radialGradient id="orb"><stop offset="0" stop-color="#8fbd83" stop-opacity=".48"/><stop offset="1" stop-color="#8fbd83" stop-opacity="0"/></radialGradient>
   </defs>
   <rect width="1920" height="1080" fill="url(#bg)"/>
-  <rect width="1920" height="1080" fill="url(#grid)"/>
-  <g stroke="#00e5ff" stroke-opacity="0.25" stroke-width="2" fill="none">
-    <path d="M0 200 L300 200 L360 260 L700 260"/><path d="M1920 880 L1600 880 L1540 820 L1250 820"/>
-    <path d="M0 860 L220 860 L280 920 L520 920"/><path d="M1920 220 L1650 220 L1590 160 L1380 160"/>
-  </g>
-  <g fill="#00e5ff" fill-opacity="0.5"><circle cx="700" cy="260" r="5"/><circle cx="1250" cy="820" r="5"/>
-    <circle cx="520" cy="920" r="5"/><circle cx="1380" cy="160" r="5"/></g>
-  <g transform="translate(960,440) scale(1.25)">
+  <circle cx="1510" cy="240" r="620" fill="url(#orb)"/>
+  <circle cx="280" cy="920" r="560" fill="url(#orb)"/>
+  <path d="M1160 0 C1450 220 1480 620 1920 760 L1920 1080 L900 1080 C1190 790 1220 360 1160 0Z" fill="#4f8b4a" opacity=".08"/>
+  <g transform="translate(960,405) scale(1.08)">
     <path d="M0 -150 L120 -105 L120 20 C120 95 60 140 0 165 C-60 140 -120 95 -120 20 L-120 -105 Z"
-          fill="#0b1118" fill-opacity="0.85" stroke="#00e5ff" stroke-width="6" stroke-linejoin="round"/>
+          fill="#ffffff" stroke="#4f8b4a" stroke-width="9" stroke-linejoin="round"/>
     <path d="M38 -55 C38 -85 -42 -85 -42 -40 C-42 5 42 -5 42 45 C42 90 -38 90 -38 55"
-          fill="none" stroke="#e6f1ff" stroke-width="14" stroke-linecap="round"/>
+          fill="none" stroke="#315f32" stroke-width="16" stroke-linecap="round"/>
   </g>
-  <text x="960" y="760" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="60"
-        font-weight="bold" letter-spacing="14" fill="#e6f1ff">SANJU SECURITY OS</text>
-  <text x="960" y="812" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="24"
-        letter-spacing="8" fill="#00e5ff" fill-opacity="0.85">Security • Forensics • Recovery</text>
+  <text x="960" y="700" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="58"
+        font-weight="bold" letter-spacing="9" fill="#263b29">SANJU SECURITY OS</text>
+  <text x="960" y="755" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="24"
+        letter-spacing="5" fill="#4f8b4a">SECURITY  •  FORENSICS  •  RECOVERY</text>
 </svg>
 SVG
 
@@ -169,7 +163,7 @@ cat > $XF/xfconf/xfce-perchannel-xml/xfce4-panel.xml <<'XML'
   <property name="panels" type="array">
     <value type="int" value="1"/>
     <property name="panel-1" type="empty">
-      <property name="position" type="string" value="p=6;x=0;y=0"/>
+      <property name="position" type="string" value="p=10;x=0;y=0"/>
       <property name="length" type="uint" value="100"/>
       <property name="position-locked" type="bool" value="true"/>
       <property name="size" type="uint" value="34"/>
@@ -188,8 +182,8 @@ cat > $XF/xfconf/xfce-perchannel-xml/xfce4-panel.xml <<'XML'
     </property>
   </property>
   <property name="plugins" type="empty">
-    <property name="plugin-1" type="string" value="applicationsmenu">
-      <property name="button-title" type="string" value="SANJU SECURITY OS"/>
+    <property name="plugin-1" type="string" value="whiskermenu">
+      <property name="button-title" type="string" value="SANJU"/>
       <property name="show-button-title" type="bool" value="true"/>
       <property name="button-icon" type="string" value="sanju-security-os"/>
     </property>
@@ -231,8 +225,8 @@ cat > $XF/xfconf/xfce-perchannel-xml/xsettings.xml <<'XML'
 <?xml version="1.0" encoding="UTF-8"?>
 <channel name="xsettings" version="1.0">
   <property name="Net" type="empty">
-    <property name="ThemeName" type="string" value="Arc-Dark"/>
-    <property name="IconThemeName" type="string" value="Papirus-Dark"/>
+    <property name="ThemeName" type="string" value="Greybird"/>
+    <property name="IconThemeName" type="string" value="Papirus"/>
   </property>
   <property name="Gtk" type="empty">
     <property name="FontName" type="string" value="Sans 10"/>
@@ -245,7 +239,7 @@ cat > $XF/xfconf/xfce-perchannel-xml/xfwm4.xml <<'XML'
 <?xml version="1.0" encoding="UTF-8"?>
 <channel name="xfwm4" version="1.0">
   <property name="general" type="empty">
-    <property name="theme" type="string" value="Arc-Dark"/>
+    <property name="theme" type="string" value="Greybird"/>
     <property name="title_alignment" type="string" value="center"/>
     <property name="use_compositing" type="bool" value="false"/>
   </property>
@@ -254,7 +248,7 @@ XML
 
 cat > $SK/.config/gtk-3.0/gtk.css <<'CSS'
 @define-color sanju_accent #00e5ff;
-selection { background-color: #00a9bd; color: #ffffff; }
+selection { background-color: #4f8b4a; color: #ffffff; }
 CSS
 
 cat > $XF/terminal/terminalrc <<'EOF'
@@ -271,8 +265,8 @@ EOF
 cat > $INC/etc/lightdm/lightdm-gtk-greeter.conf <<'EOF'
 [greeter]
 background=/usr/share/backgrounds/sanju/sanju-login.png
-theme-name=Arc-Dark
-icon-theme-name=Papirus-Dark
+theme-name=Greybird
+icon-theme-name=Papirus
 font-name=Sans 11
 default-user-image=/usr/share/icons/hicolor/scalable/apps/sanju-security-os.svg
 clock-format=%a %d %b  %H:%M
