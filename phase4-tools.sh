@@ -56,6 +56,13 @@ lynis
 rkhunter
 chkrootkit
 debsecan
+# --- desktop productivity and media
+libreoffice
+vlc
+# --- firewall and storage usage GUI
+ufw
+gufw
+baobab
 # --- utilities
 htop
 ncdu
@@ -81,6 +88,8 @@ hashdeep
 volatility3
 plaso
 openscap-scanner
+# Tor Browser launcher (downloads/verifies the browser on first setup; internet needed)
+torbrowser-launcher
 EOF
 
 cat > config/hooks/normal/0300-sanju-optional-tools.hook.chroot <<'SH'
@@ -226,6 +235,7 @@ Wi-Fi      iw, wavemon, aircrack-ng, kismet        (own/authorized networks only
 Forensics  guymager, ddrescue, dc3dd, ewf-tools, sleuthkit, photorec, foremost,
            bulk-extractor, volatility3, plaso
 Recovery   gparted, smartmontools, testdisk, ntfs-3g, efibootmgr, grub, rsync
+Desktop    libreoffice, vlc, gufw/ufw, baobab, torbrowser-launcher (if available)
 Analysis   hashdeep, exiftool, binwalk, yara, lnav, ghex
 Audit      lynis, rkhunter, chkrootkit, debsecan, openscap
 
