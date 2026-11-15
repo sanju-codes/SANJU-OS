@@ -52,14 +52,14 @@ jobs:
           fi
           echo "PROJ=$PROJ" >> "$GITHUB_ENV"
 
-      - name: Build ISO inside Debian 12 (bookworm) container
+      - name: Build ISO inside Debian 13 (trixie) container
         run: |
           set -euxo pipefail
           cd "$PROJ"
           mkdir -p build
           chmod +x scripts/*.sh tools/*.sh 2>/dev/null || true
           find config -type f \( -name '*.hook.*' -o -path '*/usr/local/*' -o -name '*.desktop' -o -name '*.py' \) -exec chmod +x {} +
-          docker run --rm --privileged -v "$PWD":/work -w /work debian:bookworm bash -euxc '
+          docker run --rm --privileged -v "$PWD":/work -w /work debian:trixie bash -euxc '
             apt-get update
             apt-get install -y sudo
             useradd -m builder
