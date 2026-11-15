@@ -18,7 +18,7 @@ gir1.2-gtk-3.0
 python3-psutil
 polkitd
 pkexec
-polkit-gnome
+mate-polkit
 man-db
 less
 EOF
