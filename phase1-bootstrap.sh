@@ -11,7 +11,7 @@ cd "$ROOT"
 cat > README.md <<'EOF'
 # Sanju Security OS
 Security • Forensics • Recovery
-Debian 12 (bookworm) + XFCE live ISO built with live-build.
+Debian 13 (trixie) + XFCE live ISO built with live-build.
 For education, authorized testing, forensics, and recovery only.
 
 Build:
@@ -58,7 +58,7 @@ cd "$HERE/build"
 sudo lb clean --purge >/dev/null 2>&1 || true
 
 lb config \
-  --distribution bookworm \
+  --distribution trixie \
   --architectures amd64 \
   --binary-images iso-hybrid \
   --bootloaders "syslinux,grub-efi" \
